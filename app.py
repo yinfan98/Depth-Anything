@@ -25,9 +25,9 @@ css = """
     }
 """
 download(model_repo='yyfan/depth_anything_vitl14', 
-        model_name='depth_anything_vitl14', output='/home/xlab-app-center')
+        model_name=['pytorch_model.bin', 'config.json'], output='depth_anything_vitl14/')
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
-model = DepthAnything.from_pretrained('/home/xlab-app-center/depth_anything_vitl14').to(DEVICE).eval()
+model = DepthAnything.from_pretrained('depth_anything_vitl14', local_files_only=True).to(DEVICE).eval()
 
 title = "# Depth Anything OpenXLab version"
 description = """Unofficial demo for **Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data**.
