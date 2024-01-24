@@ -8,6 +8,7 @@ import torch.nn.functional as F
 from torchvision.transforms import Compose
 import tempfile
 from gradio_imageslider import ImageSlider
+from openxlab.model import download
 
 from depth_anything.dpt import DepthAnything
 from depth_anything.util.transform import Resize, NormalizeImage, PrepareForNet
@@ -23,12 +24,14 @@ css = """
     max-height: 80vh;
     }
 """
+download(model_repo='yyfan/depth_anything_vitl14', 
+        model_name='depth_anything_vitl14', output='/home/xlab-app-center')
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
-model = DepthAnything.from_pretrained('LiheYoung/depth_anything_vitl14').to(DEVICE).eval()
+model = DepthAnything.from_pretrained('/home/xlab-app-center/depth_anything_vitl14').to(DEVICE).eval()
 
-title = "# Depth Anything"
-description = """Official demo for **Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data**.
-Please refer to our [paper](https://arxiv.org/abs/2401.10891), [project page](https://depth-anything.github.io), or [github](https://github.com/LiheYoung/Depth-Anything) for more details."""
+title = "# Depth Anything OpenXLab version"
+description = """Unofficial demo for **Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data**.
+Please refer the [paper](https://arxiv.org/abs/2401.10891), [project page](https://depth-anything.github.io), or [github](https://github.com/LiheYoung/Depth-Anything) for more details."""
 
 transform = Compose([
         Resize(
